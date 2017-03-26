@@ -1,12 +1,41 @@
 import React from 'react';
-// var axios = require('axios');
-//
-// const WEATHER_MAP_URL = 'https://api.darksky.net/forecast/00b33f183082aa47ef9863812e5320e1/37.8267,-122.4233'
+import _ from 'lodash';
+import ApiService from 'app/services/ApiService.js';
 
 export default class WeatherTile extends React.Component{
+    constructor() {
+        super();
+        this.state = {};
+    }
+
+    componentWillMount() {
+        let url = 'http://localhost:1337/api/darksky';
+
+        ApiService(url, this.onWeatherDataSuccess)
+    }
+
+    onWeatherDataSuccess = (weatherData) => {
+        this.setState({
+            weatherData: weatherData.daily.data
+        });
+    }
+
+    onWeatherDataFailure = (error) => {
+
+    }
+
     render() {
+        let weatherWeek = _.map(this.state.weatherData, (weather) => {
+            return <li>{weather.summary}</li>
+        });
+
         return (
-            <h2>WeatherTile Component</h2>
+            <div>
+                <h2>WeatherTile Component</h2>
+                <ul>
+                    {weatherWeek}
+                </ul>
+            </div>
         );
     }
 }
