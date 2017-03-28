@@ -4,6 +4,7 @@
   "description": "Simple react app",
   "main": "index.js",
   "scripts": {
+    "start": "webpack --config ./webpack.config.js --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Andrew Mead",

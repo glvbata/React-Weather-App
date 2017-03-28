@@ -1,32 +1,10 @@
 import React from 'react';
 import {IntlProvider, FormattedDate} from 'react-intl';
-import _ from 'lodash';
-import ApiService from 'app/services/ApiService.js';
 import Skycons from 'react-skycons';
 
-export default class WeatherTile extends React.Component{
+export default class WeatherTile extends React.Component {
     constructor() {
         super();
-        this.state = {};
-    }
-
-    componentWillMount() {
-        this.weatherServiceCall();
-    }
-
-    weatherServiceCall() {
-        let url = 'http://localhost:1337/api/darksky';
-        ApiService(url, this.onWeatherDataSuccess);
-    }
-
-    onWeatherDataSuccess = (weatherData) => {
-        this.setState({
-            weatherData: weatherData.daily.data
-        });
-    }
-
-    onWeatherDataFailure = (error) => {
-
     }
 
     toConvertTime(time) {
@@ -78,6 +56,7 @@ export default class WeatherTile extends React.Component{
     }
 
     render() {
+        let weather = this.props;
         let tempContainerStyle = {
             textAlign: 'center',
             padding: '10px',
@@ -87,28 +66,20 @@ export default class WeatherTile extends React.Component{
             width: '500px'
         }
 
-        let weatherWeek = _.map(this.state.weatherData, (weather) => {
-            return (
-                <li>
-                    <div className="weather-tile__container" style={tempContainerStyle}>
-                        <div>Time: <FormattedDate value={this.toConvertTime(weather.time)} day="numeric" month="long"/></div>
-                        <div>Summary: {weather.summary}</div>
-                        <div><Skycons color='black' icon={this.toMapWeatherIcon(weather.icon)}/></div>
-                        <div>Min Temperature: {weather.temperatureMin}°F at <FormattedDate value={this.toConvertTime(weather.temperatureMinTime)} day="numeric" month="long" hour="2-digit" minute="2-digit" /></div>
-                        <div>Max Temperature: {weather.temperatureMax}°F at <FormattedDate value={this.toConvertTime(weather.temperatureMaxTime)} day="numeric" month="long" hour="2-digit" minute="2-digit" /> </div>
-                    </div>
-                </li>
-            )
-        });
-
         return (
             <div>
-                <h2>WeatherTile Component</h2>
                 <IntlProvider locale="en">
-                    <ul>
-                        {weatherWeek}
-                    </ul>
-                </IntlProvider>,
+                    <div>
+                        <h2><FormattedDate value={this.toConvertTime(weather.time)} weekday="long"/></h2>
+                        <div className="weather-tile__container" style={tempContainerStyle}>
+                            <div>Time: <FormattedDate value={this.toConvertTime(weather.time)} day="numeric" month="long"/></div>
+                            <div>Summary: {weather.summary}</div>
+                            <div><Skycons color='black' icon={this.toMapWeatherIcon(weather.icon)}/></div>
+                            <div>Min Temperature: {weather.temperatureMin}°F at <FormattedDate value={this.toConvertTime(weather.temperatureMinTime)} day="numeric" month="long" hour="2-digit" minute="2-digit" /></div>
+                            <div>Max Temperature: {weather.temperatureMax}°F at <FormattedDate value={this.toConvertTime(weather.temperatureMaxTime)} day="numeric" month="long" hour="2-digit" minute="2-digit" /> </div>
+                        </div>
+                    </div>
+                </IntlProvider>
             </div>
         );
     }

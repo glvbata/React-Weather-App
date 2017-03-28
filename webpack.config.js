@@ -10,7 +10,9 @@ module.exports = {
         About: 'app/components/About/About.jsx',
         Main: 'app/components/Main/Main.jsx',
         Navigation: 'app/components/Navigation/Navigation.jsx',
-        WeatherTile: 'app/components/WeatherTile/WeatherTile.jsx'
+        WeatherTile: 'app/components/WeatherTile/WeatherTile.jsx',
+        WeatherTileDetailed: 'app/components/WeatherTileDetailed/WeatherTileDetailed.jsx',
+        WeatherTilesContainer: 'app/components/WeatherTilesContainer/WeatherTilesContainer.jsx'
     },
     extensions: ['', '.js', '.jsx']
   },
