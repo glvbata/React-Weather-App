@@ -57,21 +57,13 @@ export default class WeatherTile extends React.Component {
 
     render() {
         let weather = this.props;
-        let tempContainerStyle = {
-            textAlign: 'center',
-            padding: '10px',
-            backgroundColor: 'gray',
-            borderRadius: '0',
-            marginBottom: '15px',
-            width: '500px'
-        }
 
         return (
             <div>
                 <IntlProvider locale="en">
                     <div>
                         <h2><FormattedDate value={this.toConvertTime(weather.time)} weekday="long"/></h2>
-                        <div className="weather-tile__container" style={tempContainerStyle}>
+                        <div className="weather-tile__container col-sm-2">
                             <div>Date: <FormattedDate value={this.toConvertTime(weather.time)} day="numeric" month="long"/></div>
                             <div>Summary: {weather.summary}</div>
                             <div><Skycons color='black' icon={this.toMapWeatherIcon(weather.icon)}/></div>

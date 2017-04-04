@@ -1,0 +1,8 @@
+.weather-tile__container {
+    text-align: center;
+    padding: 10px;
+    background-color: gray;
+    border-radius: 0;
+    margin-bottom: 15px;
+    width: 500px;
+}

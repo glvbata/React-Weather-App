@@ -23,12 +23,16 @@ module.exports = {
         query: {
           presets: ['react', 'es2015'],
           plugins: [
-              ["transform-class-properties"]
+              ['transform-class-properties']
           ]
         },
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/
-      }
+    },
+    {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
+     },
     ]
   }
 };
