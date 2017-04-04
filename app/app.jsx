@@ -7,7 +7,6 @@ import About from 'About';
 
 require('./components/WeatherTile/WeatherTile.css');
 require('./components/WeatherTileDetailed/WeatherTileDetailed.css');
-require('../node_modules/bootstrap/dist/css/bootstrap.css');
 
 ReactDOM.render(
     <Router history={hashHistory}>
