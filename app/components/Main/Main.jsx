@@ -4,9 +4,9 @@ import Navigation from 'Navigation';
 export default class Main extends React.Component {
     render() {
         return(
-            <div>
+            <div className="main-component">
                 <Navigation/>
-                <h2>Main Component</h2>
+                <h2 className="col-md-12">Main Component</h2>
                 {this.props.children}
             </div>
         );

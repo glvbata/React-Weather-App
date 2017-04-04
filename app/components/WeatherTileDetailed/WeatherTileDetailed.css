@@ -1,3 +1,7 @@
+.weather-tile-detailed  {
+    margin-bottom: 40px;
+}
+
 .weather-tile-detailed__container {
-    color: red;
+    color: black;
 }

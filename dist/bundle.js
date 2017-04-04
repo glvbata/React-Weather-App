@@ -25474,11 +25474,11 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                'div',
-	                null,
+	                { className: 'main-component' },
 	                _react2.default.createElement(_Navigation2.default, null),
 	                _react2.default.createElement(
 	                    'h2',
-	                    null,
+	                    { className: 'col-md-12' },
 	                    'Main Component'
 	                ),
 	                this.props.children
@@ -71196,7 +71196,7 @@
 
 
 	// module
-	exports.push([module.id, ".weather-tile-detailed__container {\n    color: red;\n}\n", ""]);
+	exports.push([module.id, ".weather-tile-detailed  {\n    margin-bottom: 40px;\n}\n\n.weather-tile-detailed__container {\n    color: black;\n}\n", ""]);
 
 	// exports
 
