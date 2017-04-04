@@ -1,0 +1,3 @@
+.navigation__nav-item :not(.navigation__link) {
+    display: none;
+}

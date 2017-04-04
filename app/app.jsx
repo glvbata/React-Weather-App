@@ -5,6 +5,7 @@ import Main from 'Main';
 import WeatherTilesContainer from 'WeatherTilesContainer';
 import About from 'About';
 
+require('./components/Navigation/Navigation.css');
 require('./components/WeatherTile/WeatherTile.css');
 require('./components/WeatherTileDetailed/WeatherTileDetailed.css');
 
