@@ -27,10 +27,7 @@ export default class WeatherTilesContainer extends React.Component {
 
     componentWillMount() {
         let that = this;
-
-        navigator.geolocation.getCurrentPosition(function(position) {
-            that.onGeoLocationSuccess(position.coords.latitude, position.coords.longitude);
-        });
+        that.onGeoLocationSuccess(47.6062095, -122.3320708);
     }
 
     onGeoLocationSuccess = (latitude, longitude) => {
@@ -38,7 +35,7 @@ export default class WeatherTilesContainer extends React.Component {
     }
 
     onGeoLocationFailure = (error) => {
-
+        console.log(error);
     }
 
     weatherServiceCall(latitude, longitude) {
