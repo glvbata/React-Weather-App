@@ -72,7 +72,7 @@ export default class WeatherTile extends React.Component {
                     <div>
                         <h2><FormattedDate value={this.toConvertTime(weather.time)} weekday="long"/></h2>
                         <div className="weather-tile__container" style={tempContainerStyle}>
-                            <div>Time: <FormattedDate value={this.toConvertTime(weather.time)} day="numeric" month="long"/></div>
+                            <div>Date: <FormattedDate value={this.toConvertTime(weather.time)} day="numeric" month="long"/></div>
                             <div>Summary: {weather.summary}</div>
                             <div><Skycons color='black' icon={this.toMapWeatherIcon(weather.icon)}/></div>
                             <div>Min Temperature: {weather.temperatureMin}°F at <FormattedDate value={this.toConvertTime(weather.temperatureMinTime)} day="numeric" month="long" hour="2-digit" minute="2-digit" /></div>

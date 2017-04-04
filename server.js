@@ -15,7 +15,7 @@ app.get('/api/darksky', function(request, response) {
     try {
         var coordinates = request.query.latitude + ',' + request.query.longitude;
         // Hard coded for now until i get geolocation working.
-        var url = 'https://api.darksky.net/forecast/00b33f183082aa47ef9863812e5320e1/37.8267,-122.4233';
+        var url = 'https://api.darksky.net/forecast/00b33f183082aa47ef9863812e5320e1/' + coordinates;
         console.log('Fetching '+ url);
 
         fetch(url).then(function(weatherData) {

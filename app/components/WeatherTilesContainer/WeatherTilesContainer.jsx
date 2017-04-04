@@ -3,11 +3,13 @@ import _ from 'lodash';
 import ApiService from 'app/services/ApiService.js';
 import WeatherTile from 'WeatherTile';
 import WeatherTileDetailed from 'WeatherTileDetailed';
+import Location from 'react-place';
 
 export default class WeatherTilesContainer extends React.Component {
     constructor() {
         super();
         this.state = {
+            location: 'Current Location',
             weatherData: [],
             weatherDataWeek: [],
             weatherDataToday: {
@@ -20,16 +22,27 @@ export default class WeatherTilesContainer extends React.Component {
                 temperatureMaxTime: 999,
                 hourly: []
             }
-
         };
     }
 
     componentWillMount() {
-        this.weatherServiceCall();
+        let that = this;
+
+        navigator.geolocation.getCurrentPosition(function(position) {
+            that.onGeoLocationSuccess(position.coords.latitude, position.coords.longitude);
+        });
     }
 
-    weatherServiceCall() {
-        let url = 'http://localhost:1337/api/darksky';
+    onGeoLocationSuccess = (latitude, longitude) => {
+        this.weatherServiceCall(latitude, longitude);
+    }
+
+    onGeoLocationFailure = (error) => {
+
+    }
+
+    weatherServiceCall(latitude, longitude) {
+        let url = 'http://localhost:1337/api/darksky?latitude=' + latitude + '&longitude=' + longitude;
         ApiService(url, this.onWeatherDataSuccess);
     }
 
@@ -55,6 +68,16 @@ export default class WeatherTilesContainer extends React.Component {
 
     }
 
+    changeLocation = (currentLocation) => {
+        // Add get currentLocation if fail;
+        let latitude = currentLocation.coords.lat;
+        let longitude = currentLocation.coords.lng;
+        let location = currentLocation.description;
+
+        this.setState({location});
+        this.weatherServiceCall(latitude, longitude);
+    }
+
     render() {
         let today = this.state.weatherDataToday;
         let weatherWeek = _.map(this.state.weatherDataWeek, (weather) => {
@@ -75,7 +98,17 @@ export default class WeatherTilesContainer extends React.Component {
 
         return (
             <div>
-                <h2>WeatherTilesContainer Component</h2>
+                <h2>{this.state.location} Weather Forecast</h2>
+                <Location
+                    country='US'
+                    noMatching='Was not able to locate {{value}}.'
+                    onLocationSet={ this.changeLocation }
+                    inputProps={{
+                        style: {color: '#0099FF'},
+                        className:'location',
+                        placeholder: 'Which city are you located?'
+                    }}
+                />
                 <WeatherTileDetailed
                     summary={today.summary}
                     time={today.time}
