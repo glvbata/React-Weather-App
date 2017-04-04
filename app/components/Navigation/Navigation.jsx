@@ -18,7 +18,7 @@ export default class Navigation extends React.Component {
                             <Link to="/" className="navigation__link" activeClassName="active">Get Weather</Link>
                         </NavItem>
 
-                        <NavItem className="navigation__nav-item" eventKey={2} href="#">
+                        <NavItem className="navigation__nav-item" eventKey={2}>
                             <Link to="/about" className="navigation__link" activeClassName="active">About</Link>
                         </NavItem>
                     </Nav>

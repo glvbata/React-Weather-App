@@ -8,6 +8,7 @@ import About from 'About';
 require('./components/Navigation/Navigation.css');
 require('./components/WeatherTile/WeatherTile.css');
 require('./components/WeatherTileDetailed/WeatherTileDetailed.css');
+require('./components/WeatherTilesContainer/WeatherTilesContainer.css');
 
 ReactDOM.render(
     <Router history={hashHistory}>

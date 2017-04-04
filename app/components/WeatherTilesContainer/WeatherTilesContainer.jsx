@@ -49,7 +49,7 @@ export default class WeatherTilesContainer extends React.Component {
         const today = weatherData.daily.data[0];
 
         this.setState({
-            weatherDataWeek: _.slice(weatherData.daily.data, 1, weatherData.daily.data.length),
+            weatherDataWeek: _.dropRight(_.slice(weatherData.daily.data, 1, weatherData.daily.data.length), 1),
             weatherDataToday: {
                 summary: today.summary,
                 time: today.time,
@@ -81,30 +81,27 @@ export default class WeatherTilesContainer extends React.Component {
         let today = this.state.weatherDataToday;
         let weatherWeek = _.map(this.state.weatherDataWeek, (weather) => {
            return (
-               <li key={weather.time}>
-                   <WeatherTile
-                       summary={weather.summary}
-                       time={weather.time}
-                       icon={weather.icon}
-                       temperatureMin={weather.temperatureMin}
-                       temperatureMinTime={weather.temperatureMinTime}
-                       temperatureMax={weather.temperatureMax}
-                       temperatureMaxTime={weather.temperatureMaxTime}>
-                   </WeatherTile>
-               </li>
+               <WeatherTile
+                   summary={weather.summary}
+                   time={weather.time}
+                   icon={weather.icon}
+                   temperatureMin={weather.temperatureMin}
+                   temperatureMinTime={weather.temperatureMinTime}
+                   temperatureMax={weather.temperatureMax}
+                   temperatureMaxTime={weather.temperatureMaxTime}>
+               </WeatherTile>
            );
        });
 
         return (
-            <div>
-                <h2>{this.state.location} Weather Forecast</h2>
+            <div className="weather-tiles-container__main col-sm-12">
+                <h2 className="weather-tiles-container__header">{this.state.location} Weather Forecast</h2>
                 <Location
                     country='US'
                     noMatching='Was not able to locate {{value}}.'
                     onLocationSet={ this.changeLocation }
                     inputProps={{
-                        style: {color: '#0099FF'},
-                        className:'location',
+                        className:'weather-tiles-container__location',
                         placeholder: 'Which city are you located?'
                     }}
                 />
@@ -118,9 +115,7 @@ export default class WeatherTilesContainer extends React.Component {
                     temperatureMaxTime={today.temperatureMaxTime}
                     hourlyData={today.hourly}>
                 </WeatherTileDetailed>
-                <ul>
-                    {weatherWeek}
-                </ul>
+                {weatherWeek}
             </div>
         );
     }

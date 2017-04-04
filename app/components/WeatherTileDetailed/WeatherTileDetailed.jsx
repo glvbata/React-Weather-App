@@ -12,7 +12,7 @@ export default class WeatherTileDetailed extends WeatherTile {
         let weather = this.props;
 
         return (
-            <div>
+            <div className="weather-tile-detailed col-sm-12 text-center">
                 <IntlProvider locale="en">
                     <div>
                         <h2><FormattedDate value={this.toConvertTime(weather.time)} weekday="long"/></h2>

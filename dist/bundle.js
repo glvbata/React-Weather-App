@@ -73,6 +73,7 @@
 	__webpack_require__(523);
 	__webpack_require__(512);
 	__webpack_require__(521);
+	__webpack_require__(525);
 
 	_reactDom2.default.render(_react2.default.createElement(
 	    _reactRouter.Router,
@@ -25563,7 +25564,7 @@
 	                        ),
 	                        _react2.default.createElement(
 	                            _reactBootstrap.NavItem,
-	                            { className: 'navigation__nav-item', eventKey: 2, href: '#' },
+	                            { className: 'navigation__nav-item', eventKey: 2 },
 	                            _react2.default.createElement(
 	                                _reactRouter.Link,
 	                                { to: '/about', className: 'navigation__link', activeClassName: 'active' },
@@ -44743,7 +44744,7 @@
 	            var today = weatherData.daily.data[0];
 
 	            _this.setState({
-	                weatherDataWeek: _lodash2.default.slice(weatherData.daily.data, 1, weatherData.daily.data.length),
+	                weatherDataWeek: _lodash2.default.dropRight(_lodash2.default.slice(weatherData.daily.data, 1, weatherData.daily.data.length), 1),
 	                weatherDataToday: {
 	                    summary: today.summary,
 	                    time: today.time,
@@ -44806,26 +44807,22 @@
 	        value: function render() {
 	            var today = this.state.weatherDataToday;
 	            var weatherWeek = _lodash2.default.map(this.state.weatherDataWeek, function (weather) {
-	                return _react2.default.createElement(
-	                    'li',
-	                    { key: weather.time },
-	                    _react2.default.createElement(_WeatherTile2.default, {
-	                        summary: weather.summary,
-	                        time: weather.time,
-	                        icon: weather.icon,
-	                        temperatureMin: weather.temperatureMin,
-	                        temperatureMinTime: weather.temperatureMinTime,
-	                        temperatureMax: weather.temperatureMax,
-	                        temperatureMaxTime: weather.temperatureMaxTime })
-	                );
+	                return _react2.default.createElement(_WeatherTile2.default, {
+	                    summary: weather.summary,
+	                    time: weather.time,
+	                    icon: weather.icon,
+	                    temperatureMin: weather.temperatureMin,
+	                    temperatureMinTime: weather.temperatureMinTime,
+	                    temperatureMax: weather.temperatureMax,
+	                    temperatureMaxTime: weather.temperatureMaxTime });
 	            });
 
 	            return _react2.default.createElement(
 	                'div',
-	                null,
+	                { className: 'weather-tiles-container__main col-sm-12' },
 	                _react2.default.createElement(
 	                    'h2',
-	                    null,
+	                    { className: 'weather-tiles-container__header' },
 	                    this.state.location,
 	                    ' Weather Forecast'
 	                ),
@@ -44834,8 +44831,7 @@
 	                    noMatching: 'Was not able to locate {{value}}.',
 	                    onLocationSet: this.changeLocation,
 	                    inputProps: {
-	                        style: { color: '#0099FF' },
-	                        className: 'location',
+	                        className: 'weather-tiles-container__location',
 	                        placeholder: 'Which city are you located?'
 	                    }
 	                }),
@@ -44848,11 +44844,7 @@
 	                    temperatureMax: today.temperatureMax,
 	                    temperatureMaxTime: today.temperatureMaxTime,
 	                    hourlyData: today.hourly }),
-	                _react2.default.createElement(
-	                    'ul',
-	                    null,
-	                    weatherWeek
-	                )
+	                weatherWeek
 	            );
 	        }
 	    }]);
@@ -62084,7 +62076,7 @@
 
 	            return _react2.default.createElement(
 	                'div',
-	                null,
+	                { className: 'weather-tile col-md-2' },
 	                _react2.default.createElement(
 	                    _reactIntl.IntlProvider,
 	                    { locale: 'en' },
@@ -62092,46 +62084,80 @@
 	                        'div',
 	                        null,
 	                        _react2.default.createElement(
-	                            'h2',
-	                            null,
-	                            _react2.default.createElement(_reactIntl.FormattedDate, { value: this.toConvertTime(weather.time), weekday: 'long' })
-	                        ),
-	                        _react2.default.createElement(
 	                            'div',
-	                            { className: 'weather-tile__container col-sm-1' },
+	                            { className: 'weather-tile__container' },
 	                            _react2.default.createElement(
 	                                'div',
-	                                null,
-	                                'Date: ',
-	                                _react2.default.createElement(_reactIntl.FormattedDate, { value: this.toConvertTime(weather.time), day: 'numeric', month: 'long' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                null,
-	                                'Summary: ',
-	                                weather.summary
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                null,
-	                                _react2.default.createElement(_reactSkycons2.default, { color: 'black', icon: this.toMapWeatherIcon(weather.icon) })
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                null,
-	                                'Min Temperature: ',
-	                                weather.temperatureMin,
-	                                '\xB0F at ',
-	                                _react2.default.createElement(_reactIntl.FormattedDate, { value: this.toConvertTime(weather.temperatureMinTime), day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                null,
-	                                'Max Temperature: ',
-	                                weather.temperatureMax,
-	                                '\xB0F at ',
-	                                _react2.default.createElement(_reactIntl.FormattedDate, { value: this.toConvertTime(weather.temperatureMaxTime), day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }),
-	                                ' '
+	                                { className: 'weather-tile__card' },
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'weather-tile__card-front' },
+	                                    _react2.default.createElement(
+	                                        'div',
+	                                        { className: 'weather-tile__skycon-container' },
+	                                        _react2.default.createElement(_reactSkycons2.default, { className: 'weather-tile__skycon', color: 'black', icon: this.toMapWeatherIcon(weather.icon) })
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'div',
+	                                        { className: 'weather-tile__info' },
+	                                        _react2.default.createElement(
+	                                            'h3',
+	                                            { className: 'weather-tile__day' },
+	                                            _react2.default.createElement(_reactIntl.FormattedDate, { value: this.toConvertTime(weather.time), weekday: 'long' })
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'p',
+	                                            { className: 'weather-tile__date' },
+	                                            _react2.default.createElement(_reactIntl.FormattedDate, { value: this.toConvertTime(weather.time), day: 'numeric', month: 'long' })
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'p',
+	                                            { className: 'tweather-tile__summary' },
+	                                            '"',
+	                                            weather.summary,
+	                                            '"'
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'div',
+	                                            null,
+	                                            'Min: ',
+	                                            weather.temperatureMin,
+	                                            '\xB0F ',
+	                                            _react2.default.createElement(_reactIntl.FormattedDate, { value: this.toConvertTime(weather.temperatureMinTime), hour: '2-digit', minute: '2-digit' })
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'div',
+	                                            null,
+	                                            'Max: ',
+	                                            weather.temperatureMax,
+	                                            '\xB0F ',
+	                                            _react2.default.createElement(_reactIntl.FormattedDate, { value: this.toConvertTime(weather.temperatureMaxTime), hour: '2-digit', minute: '2-digit' })
+	                                        )
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'weather-tile__card-back' },
+	                                    _react2.default.createElement(
+	                                        'h5',
+	                                        null,
+	                                        'More Details'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'div',
+	                                        { className: 'weather-tile__info ' },
+	                                        _react2.default.createElement(
+	                                            'h4',
+	                                            { className: 'text-center' },
+	                                            'More Description!'
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'p',
+	                                            { className: 'text-center' },
+	                                            'Blablabll'
+	                                        )
+	                                    )
+	                                )
 	                            )
 	                        )
 	                    )
@@ -67347,7 +67373,7 @@
 
 	            return _react2.default.createElement(
 	                'div',
-	                null,
+	                { className: 'weather-tile-detailed col-sm-12 text-center' },
 	                _react2.default.createElement(
 	                    _reactIntl.IntlProvider,
 	                    { locale: 'en' },
@@ -68640,7 +68666,7 @@
 
 
 	// module
-	exports.push([module.id, ".weather-tile__container {\n    text-align: center;\n    padding: 10px;\n    background-color: gray;\n    border-radius: 0;\n    margin-bottom: 15px;\n    width: 500px;\n}\n", ""]);
+	exports.push([module.id, ".weather-tile__container,\n.weather-tile__card-front,\n.weather-tile__card-back {\n\twidth: 100%;\n\theight: 420px;\n\tborder-radius: 4px;\n    box-shadow: 0px 0px 19px 0px rgba(0,0,0,0.16);\n}\n\n.weather-tile__container:hover\n.weather-tile__card {\n    transform: rotateY( 180deg );\n}\n\n.weather-tile__card {\n    transition: transform .5s;\n    transform-style: preserve-3d;\n\tposition: relative;\n    background: none repeat scroll 0 0 #FFFFFF;\n    border-radius: 4px;\n    color: #444444;\n}\n\n.weather-tile__card-front {\n\tz-index: 2;\n}\n\n.weather-tile__card-back {\n    transform: rotateY( 180deg );\n    z-index: 3;\n}\n\n.weather-tile__card-front,\n.weather-tile__card-back {\n    backface-visibility: hidden;\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\tbackground-color: #FFF;\n    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.14);\n}\n\n.weather-tile__card .weather-tile__info {\n    background-color: rgba(0, 0, 0, 0);\n    box-shadow: none;\n    padding: 10px 20px 20px;\n}\n.weather-tile__card .weather-tile__info  {\n    min-height: 160px;\n}\n.weather-tile__card .weather-tile__card-back .weather-tile__info {\n    height: 215px;\n}\n\n.weather-tile__skycon {\n    width: 150px;\n}\n\n.weather-tile__skycon-container{\n    width: 100%;\n    text-align: center;\n    margin-top: 40px;\n}\n\n.weather-tile__summary {\n    text-align: center;\n    margin-bottom: 40px;\n}\n\n.weather-tile__day {\n\tfont-family: cursive;\n    font-size: 22px;\n    line-height: 28px;\n    margin: 10px 0 0;\n    text-align: center;\n    text-transform: capitalize;\n}\n\n.weather-tile__date {\n    color: #999999;\n    text-align: center;\n    margin-bottom: 20px;\n}\n", ""]);
 
 	// exports
 
@@ -71211,6 +71237,46 @@
 
 	// module
 	exports.push([module.id, ".navigation__nav-item :not(.navigation__link) {\n    display: none;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 525 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(526);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(519)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!../../../node_modules/css-loader/index.js!./WeatherTilesContainer.css", function() {
+				var newContent = require("!!../../../node_modules/css-loader/index.js!./WeatherTilesContainer.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 526 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(514)(undefined);
+	// imports
+
+
+	// module
+	exports.push([module.id, ".weather-tiles-container__location {\n    width: 250px;\n    height: 30px;\n    margin-bottom: 20px;\n}\n", ""]);
 
 	// exports
 

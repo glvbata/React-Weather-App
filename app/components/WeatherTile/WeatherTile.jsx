@@ -59,16 +59,33 @@ export default class WeatherTile extends React.Component {
         let weather = this.props;
 
         return (
-            <div>
+            <div className="weather-tile col-md-2">
                 <IntlProvider locale="en">
                     <div>
-                        <h2><FormattedDate value={this.toConvertTime(weather.time)} weekday="long"/></h2>
-                        <div className="weather-tile__container col-sm-1">
-                            <div>Date: <FormattedDate value={this.toConvertTime(weather.time)} day="numeric" month="long"/></div>
-                            <div>Summary: {weather.summary}</div>
-                            <div><Skycons color='black' icon={this.toMapWeatherIcon(weather.icon)}/></div>
-                            <div>Min Temperature: {weather.temperatureMin}°F at <FormattedDate value={this.toConvertTime(weather.temperatureMinTime)} day="numeric" month="long" hour="2-digit" minute="2-digit" /></div>
-                            <div>Max Temperature: {weather.temperatureMax}°F at <FormattedDate value={this.toConvertTime(weather.temperatureMaxTime)} day="numeric" month="long" hour="2-digit" minute="2-digit" /> </div>
+                        <div className="weather-tile__container">
+                            <div className="weather-tile__card">
+                                <div className="weather-tile__card-front">
+                                    <div className="weather-tile__skycon-container">
+                                        <Skycons className="weather-tile__skycon" color='black' icon={this.toMapWeatherIcon(weather.icon)}/>
+                                    </div>
+                                        <div className="weather-tile__info">
+                                            <h3 className="weather-tile__day"><FormattedDate value={this.toConvertTime(weather.time)} weekday="long"/></h3>
+                                            <p className="weather-tile__date"><FormattedDate value={this.toConvertTime(weather.time)} day="numeric" month="long"/></p>
+                                            <p className="tweather-tile__summary">
+                                                "{weather.summary}"
+                                            </p>
+                                            <div>Min: {weather.temperatureMin}°F <FormattedDate value={this.toConvertTime(weather.temperatureMinTime)} hour="2-digit" minute="2-digit" /></div>
+                                            <div>Max: {weather.temperatureMax}°F <FormattedDate value={this.toConvertTime(weather.temperatureMaxTime)} hour="2-digit" minute="2-digit" /></div>
+                                        </div>
+                                </div>
+                                <div className="weather-tile__card-back">
+                                    <h5>More Details</h5>
+                                    <div className="weather-tile__info ">
+                                        <h4 className="text-center">More Description!</h4>
+                                        <p className="text-center">Blablabll</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </IntlProvider>
