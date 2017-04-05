@@ -4,6 +4,7 @@ import ApiService from 'app/services/ApiService.js';
 import WeatherTile from 'WeatherTile';
 import WeatherTileDetailed from 'WeatherTileDetailed';
 import Location from 'react-place';
+import Spinner from 'react-spinkit';
 
 export default class WeatherTilesContainer extends React.Component {
     constructor() {
@@ -21,7 +22,8 @@ export default class WeatherTilesContainer extends React.Component {
                 temperatureMax: 0,
                 temperatureMaxTime: 999,
                 hourly: []
-            }
+            },
+            hasLoaded: false
         };
     }
 
@@ -59,7 +61,8 @@ export default class WeatherTilesContainer extends React.Component {
                 temperatureMax: today.temperatureMax,
                 temperatureMaxTime: today.temperatureMaxTime,
                 hourly: weatherData.hourly
-            }
+            },
+            hasLoaded: true
         });
     }
 
@@ -73,7 +76,7 @@ export default class WeatherTilesContainer extends React.Component {
         let longitude = currentLocation.coords.lng;
         let location = currentLocation.description;
 
-        this.setState({location});
+        this.setState({location, hasLoaded: false});
         this.weatherServiceCall(latitude, longitude);
     }
 
@@ -91,7 +94,7 @@ export default class WeatherTilesContainer extends React.Component {
                    temperatureMaxTime={weather.temperatureMaxTime}>
                </WeatherTile>
            );
-       });
+        });
 
         return (
             <div className="weather-tiles-container__main col-sm-12">
@@ -102,20 +105,29 @@ export default class WeatherTilesContainer extends React.Component {
                     onLocationSet={ this.changeLocation }
                     inputProps={{
                         className:'weather-tiles-container__location',
-                        placeholder: 'Which city are you located?'
+                        placeholder: 'Search another city'
                     }}
                 />
-                <WeatherTileDetailed
-                    summary={today.summary}
-                    time={today.time}
-                    icon={today.icon}
-                    temperatureMin={today.temperatureMin}
-                    temperatureMinTime={today.temperatureMinTime}
-                    temperatureMax={today.temperatureMax}
-                    temperatureMaxTime={today.temperatureMaxTime}
-                    hourlyData={today.hourly}>
-                </WeatherTileDetailed>
-                {weatherWeek}
+
+                {this.state.hasLoaded ? (
+                    <div>
+                        <WeatherTileDetailed
+                            summary={today.summary}
+                            time={today.time}
+                            icon={today.icon}
+                            temperatureMin={today.temperatureMin}
+                            temperatureMinTime={today.temperatureMinTime}
+                            temperatureMax={today.temperatureMax}
+                            temperatureMaxTime={today.temperatureMaxTime}
+                            hourlyData={today.hourly}>
+                        </WeatherTileDetailed>
+                        {weatherWeek}
+                    </div>
+                ) : (
+                    <div className="weather-tile-container__spinner">
+                        <Spinner spinnerName='three-bounce' />
+                    </div>
+                )}
             </div>
         );
     }

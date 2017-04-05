@@ -59,7 +59,7 @@ export default class WeatherTile extends React.Component {
         let weather = this.props;
 
         return (
-            <div className="weather-tile col-md-2">
+            <div className="weather-tile col-xs-8 col-xs-offset-2 col-md-2 col-md-offset-0">
                 <IntlProvider locale="en">
                     <div>
                         <div className="weather-tile__container">

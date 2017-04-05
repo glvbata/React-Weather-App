@@ -20,7 +20,8 @@
     "react-intl": "^2.2.3",
     "react-place": "^0.6.1",
     "react-router": "^2.0.1",
-    "react-skycons": "^0.2.1"
+    "react-skycons": "^0.2.1",
+    "react-spinkit": "^2.1.1"
   },
   "devDependencies": {
     "babel-core": "^6.5.1",
