@@ -43,7 +43,7 @@ export default class WeatherTilesContainer extends React.Component {
     }
 
     weatherServiceCall(latitude, longitude) {
-        let url = 'http://localhost:1337/api/darksky?latitude=' + latitude + '&longitude=' + longitude;
+        let url = '/api/darksky?latitude=' + latitude + '&longitude=' + longitude;
         ApiService(url, this.onWeatherDataSuccess);
     }
 

@@ -7,15 +7,15 @@ app.use(express.static('dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var DARKSKY_SECRET_API_KEY = '00b33f183082aa47ef9863812e5320e1';
-var url_prefix = 'https://api.darksky.net/forecast/' + DARKSKY_SECRET_API_KEY + '/';
+const port = process.env.PORT || 1337;
+const DARKSKY_SECRET_API_KEY = '00b33f183082aa47ef9863812e5320e1';
+const url_prefix = 'https://api.darksky.net/forecast/' + DARKSKY_SECRET_API_KEY + '/';
 
 // I was having CORS issue so I decided to make a fetch call to the proxy server.
 app.get('/api/darksky', function(request, response) {
     try {
         var coordinates = request.query.latitude + ',' + request.query.longitude;
-        // Hard coded for now until i get geolocation working.
-        var url = 'https://api.darksky.net/forecast/00b33f183082aa47ef9863812e5320e1/' + coordinates;
+        var url = url_prefix  + coordinates;
         console.log('Fetching '+ url);
 
         fetch(url).then(function(weatherData) {
