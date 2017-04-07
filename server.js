@@ -1,13 +1,33 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var fetch = require('isomorphic-fetch');
-var app = express();
+const path = require('path');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const fetch = require('isomorphic-fetch');
+const port = (process.env.PORT || 1337)
+const indexPath = path.join(__dirname, 'index.html');
+const publicPath = express.static(path.join(__dirname, 'public'));
+
+app.use('/dist', publicPath);
+app.get('/', function (_, res) { res.sendFile(indexPath) });
+
+if (process.env.NODE_ENV !== 'production') {
+    const webpack = require('webpack');
+    const webpackDevMiddleware = require('webpack-dev-middleware');
+    const webpackHotMiddleware = require('webpack-hot-middleware');
+    const config = require('./webpack.dev.config.js');
+    const compiler = webpack(config);
+
+    app.use(webpackHotMiddleware(compiler));
+    app.use(webpackDevMiddleware(compiler, {
+        noInfo: true,
+        publicPath: config.output.publicPath
+    }));
+}
 
 app.use(express.static('dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const port = process.env.PORT || 1337;
 const DARKSKY_SECRET_API_KEY = '00b33f183082aa47ef9863812e5320e1';
 const url_prefix = 'https://api.darksky.net/forecast/' + DARKSKY_SECRET_API_KEY + '/';
 
@@ -37,6 +57,6 @@ app.get('/api/darksky', function(request, response) {
     }
 });
 
-app.listen(1337, function () {
-    console.log('Server is running');
-});
+
+app.listen(port)
+console.log(`Listening at http://localhost:${port}`)
