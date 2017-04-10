@@ -51,7 +51,7 @@ export default class WeatherTileDetailed extends WeatherTile {
                             <div>Min Temperature: {weather.temperatureMin}°F at <FormattedDate value={this.toConvertTime(weather.temperatureMinTime)} day="numeric" month="long" hour="2-digit" minute="2-digit" /></div>
                             <div>Max Temperature: {weather.temperatureMax}°F at <FormattedDate value={this.toConvertTime(weather.temperatureMaxTime)} day="numeric" month="long" hour="2-digit" minute="2-digit" /> </div>
                         </div>
-                        <LineChart data={chartData}/>
+
                     </div>
                 </IntlProvider>
             </div>

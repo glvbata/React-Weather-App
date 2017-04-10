@@ -4,9 +4,8 @@ module.exports = {
     devtool: 'eval',
     entry: './app/app.jsx',
     output: {
-        path: __dirname,
-        filename: 'bundle.js',
-        publicPath: '/dist/'
+        path: __dirname + '/dist',
+        filename: 'bundle.js'
     },
     resolve: {
         root: __dirname,
@@ -20,10 +19,6 @@ module.exports = {
     },
     extensions: ['', '.js', '.jsx']
     },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
-    ],
     module: {
         loaders:
         [{

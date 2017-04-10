@@ -3,31 +3,14 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const fetch = require('isomorphic-fetch');
-const port = (process.env.PORT || 1337)
-const indexPath = path.join(__dirname, 'index.html');
-const publicPath = express.static(path.join(__dirname, 'public'));
+const port = (process.env.PORT || 1337);
+const publicPath = express.static(path.join(__dirname, 'dist'));
 const DARKSKY_SECRET_API_KEY = '00b33f183082aa47ef9863812e5320e1';
 const url_prefix = 'https://api.darksky.net/forecast/' + DARKSKY_SECRET_API_KEY + '/';
 
-//app.use('/dist', publicPath);
-app.use(express.static('dist'));
-app.get('/', function (_, res) { res.sendFile(indexPath) });
+app.use(publicPath);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-if (process.env.NODE_ENV !== 'production') {
-    const webpack = require('webpack');
-    const webpackDevMiddleware = require('webpack-dev-middleware');
-    const webpackHotMiddleware = require('webpack-hot-middleware');
-    const config = require('./webpack.dev.config.js');
-    const compiler = webpack(config);
-
-    app.use(webpackHotMiddleware(compiler));
-    app.use(webpackDevMiddleware(compiler, {
-        noInfo: true,
-        publicPath: config.output.publicPath
-    }));
-}
 
 // I was having CORS issue so I decided to make a fetch call to the proxy server.
 app.get('/api/darksky', function(request, response) {
