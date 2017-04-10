@@ -18,7 +18,7 @@ export default class WeatherTileDetailed extends WeatherTile {
                 <IntlProvider locale="en">
                     <div>
                         <h2 className="text-center"><FormattedDate value={this.toConvertTime(weather.time)} weekday="long"/></h2>
-                        <div className="weather-tile-detailed__container col-sm-12 col-md-5 text-center">
+                        <div className="weather-tile-detailed__container col-sm-12 col-md-4 text-center">
                             <div>Date: <FormattedDate value={this.toConvertTime(weather.time)} day="numeric" month="long"/></div>
                             <div>Summary: {weather.summary}</div>
                             <div><Skycons color='black' icon={this.toMapWeatherIcon(weather.icon)}/></div>
