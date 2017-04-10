@@ -6,9 +6,14 @@ const fetch = require('isomorphic-fetch');
 const port = (process.env.PORT || 1337)
 const indexPath = path.join(__dirname, 'index.html');
 const publicPath = express.static(path.join(__dirname, 'public'));
+const DARKSKY_SECRET_API_KEY = '00b33f183082aa47ef9863812e5320e1';
+const url_prefix = 'https://api.darksky.net/forecast/' + DARKSKY_SECRET_API_KEY + '/';
 
-app.use('/dist', publicPath);
+//app.use('/dist', publicPath);
+app.use(express.static('dist'));
 app.get('/', function (_, res) { res.sendFile(indexPath) });
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 if (process.env.NODE_ENV !== 'production') {
     const webpack = require('webpack');
@@ -23,13 +28,6 @@ if (process.env.NODE_ENV !== 'production') {
         publicPath: config.output.publicPath
     }));
 }
-
-app.use(express.static('dist'));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-const DARKSKY_SECRET_API_KEY = '00b33f183082aa47ef9863812e5320e1';
-const url_prefix = 'https://api.darksky.net/forecast/' + DARKSKY_SECRET_API_KEY + '/';
 
 // I was having CORS issue so I decided to make a fetch call to the proxy server.
 app.get('/api/darksky', function(request, response) {
@@ -56,7 +54,6 @@ app.get('/api/darksky', function(request, response) {
         });
     }
 });
-
 
 app.listen(port)
 console.log(`Listening at http://localhost:${port}`)
