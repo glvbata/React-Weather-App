@@ -32,6 +32,10 @@
     z-index: 3;
 }
 
+.weather-tile__card-back h5 {
+    margin-top: 50%;
+}
+
 .weather-tile__card-front,
 .weather-tile__card-back {
     backface-visibility: hidden;

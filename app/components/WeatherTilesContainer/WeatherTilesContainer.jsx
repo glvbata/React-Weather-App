@@ -60,7 +60,7 @@ export default class WeatherTilesContainer extends React.Component {
                 temperatureMinTime: today.temperatureMinTime,
                 temperatureMax: today.temperatureMax,
                 temperatureMaxTime: today.temperatureMaxTime,
-                hourly: weatherData.hourly
+                hourly: _.slice(weatherData.hourly.data, 0, 23)
             },
             hasLoaded: true
         });
@@ -71,7 +71,6 @@ export default class WeatherTilesContainer extends React.Component {
     }
 
     changeLocation = (currentLocation) => {
-        // Add get currentLocation if fail;
         let latitude = currentLocation.coords.lat;
         let longitude = currentLocation.coords.lng;
         let location = currentLocation.description;

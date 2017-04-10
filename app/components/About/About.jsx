@@ -8,7 +8,10 @@ export default class About extends React.Component {
                 <div>
                     This weather app is created with ReactJS and other middlewares that compliments react.
                     <br></br>
-                    Also, another purpose of this page is to study and practice page states after routing.
+                    The purpose of this app is to learn and explore more about ReactJS and other frameworks/middleware that compliments it.
+                    <br></br>
+                    <br></br>
+                    Author: Gian Lendl V. Bata
                 </div>
             </div>
         );

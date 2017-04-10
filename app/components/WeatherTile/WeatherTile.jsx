@@ -82,7 +82,7 @@ export default class WeatherTile extends React.Component {
                                     <h5>More Details</h5>
                                     <div className="weather-tile__info ">
                                         <h4 className="text-center">More Description!</h4>
-                                        <p className="text-center">Blablabll</p>
+                                        <p className="text-center">Put more description</p>
                                     </div>
                                 </div>
                             </div>
